@@ -7,7 +7,7 @@ Pulumi must create :
  * a dedicated Network
  * a dedicated Firewall
  * a Virtual machine 8GB - 4 cores
- * a Cloud SQL (MySQ)
+ * a Cloud SQL (MySQL)
  
 ### Level 1:
 
