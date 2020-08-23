@@ -18,13 +18,37 @@ Start up the containers
 
 Do not use the docker MySQL but use the deployed Cloud SQL.
 
+
+
+Google Cloud Platform Resource Provider package is available in many languages in the standard packaging formats.
+
+Node.js (Java/TypeScript)
+To use from JavaScript or TypeScript in Node.js, install using either npm:
+
+# npm install @pulumi/gcp
+or yarn:
+
+# yarn add @pulumi/gcp
+Python
+To use from Python, install using pip:
+
+# pip install pulumi_gcp
+Go
+To use from Go, use go get to grab the latest version of the library
+
+# go get github.com/pulumi/pulumi-gcp/sdk/v3
+.NET
+To use from .NET, install using dotnet add package:
+
+# dotnet add package Pulumi.Gcp
+
 ### Run project
 1.Install Pulumi on Linux by running the installation script:  
-curl -fsSL https://get.pulumi.com | sh
+# curl -fsSL https://get.pulumi.com | sh
 
-1.create first projekt
-mkdir quickstart && cd quickstart
-pulumi new gcp-python
+1.create first projekt:
+# mkdir quickstart && cd quickstart
+# pulumi new gcp-python
 
 Let’s review some of the generated project files:
 
@@ -34,11 +58,15 @@ __main__.py is the Pulumi program that defines our stack resources. Let’s exam
 
 
 1.Let’s go ahead and deploy the stack:
-pulumi up -y
+# pulumi up -y
 
 1.To destroy resources, run the following:
-pulumi destroy -y
+# pulumi destroy -y
 
 1.To delete the stack itself, run pulumi stack rm. Note that this removes the stack entirely from the Pulumi Service, along with all of its update history.
-pulumi stack rm
+# pulumi stack rm
 
+-------------
+
+In order to use tf2pulumi to convert a Terraform project to Pulumi TypeScript and then deploy it, you'll first need to install the Pulumi CLI. Once the Pulumi CLI has been installed, navigate to the same directory as the Terraform project you'd like to import and create a new Pulumi TypeScript stack:
+#  tf2pulumi
