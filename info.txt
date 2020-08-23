@@ -1,0 +1,1027 @@
+Connection to 104.197.130.60 closed.
+ERROR: (gcloud.beta.compute.ssh) [/usr/bin/ssh] exited with return code [255].
+legion@SkyNet:~$ gcloud beta compute ssh --zone "us-central1-a" "opendax" --project "chef-216716"
+Warning: Permanently added 'compute.8310342462412176685' (ECDSA) to the list of known hosts.
+Welcome to Ubuntu 18.04.4 LTS (GNU/Linux 5.0.0-1034-gcp x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Sat Aug 22 20:56:48 UTC 2020
+
+  System load:  0.07               Processes:              106
+  Usage of /:   0.6% of 290.58GB   Users logged in:        0
+  Memory usage: 4%                 IP address for ens4:    10.128.0.2
+  Swap usage:   0%                 IP address for docker0: 172.17.0.1
+
+106 packages can be updated.
+64 updates are security updates.
+
+
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+legion@opendax:~$ sudo systemctl status docker
+● docker.service - Docker Application Container Engine
+   Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
+   Active: active (running) since Sat 2020-08-22 20:47:16 UTC; 9min ago
+     Docs: https://docs.docker.com
+ Main PID: 8576 (dockerd)
+    Tasks: 10
+   CGroup: /system.slice/docker.service
+           └─8576 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+
+Aug 22 20:47:16 opendax dockerd[8576]: time="2020-08-22T20:47:16.633003591Z" level=warning msg="Your kernel does not support cgroup rt runtime"
+Aug 22 20:47:16 opendax dockerd[8576]: time="2020-08-22T20:47:16.633011789Z" level=warning msg="Your kernel does not support cgroup blkio weight"
+Aug 22 20:47:16 opendax dockerd[8576]: time="2020-08-22T20:47:16.633019327Z" level=warning msg="Your kernel does not support cgroup blkio weight_device"
+Aug 22 20:47:16 opendax dockerd[8576]: time="2020-08-22T20:47:16.633729984Z" level=info msg="Loading containers: start."
+Aug 22 20:47:16 opendax dockerd[8576]: time="2020-08-22T20:47:16.778318940Z" level=info msg="Default bridge (docker0) is assigned with an IP address 172.17.0.0/16. Da
+Aug 22 20:47:16 opendax dockerd[8576]: time="2020-08-22T20:47:16.851990056Z" level=info msg="Loading containers: done."
+Aug 22 20:47:16 opendax dockerd[8576]: time="2020-08-22T20:47:16.873030580Z" level=info msg="Docker daemon" commit=48a66213fe graphdriver(s)=overlay2 version=19.03.12
+Aug 22 20:47:16 opendax dockerd[8576]: time="2020-08-22T20:47:16.873199725Z" level=info msg="Daemon has completed initialization"
+Aug 22 20:47:16 opendax dockerd[8576]: time="2020-08-22T20:47:16.903424318Z" level=info msg="API listen on /var/run/docker.sock"
+Aug 22 20:47:16 opendax systemd[1]: Started Docker Application Container Engine.
+
+legion@opendax:~$ ruby -v
+
+Command 'ruby' not found, but can be installed with:
+
+snap install ruby  # version 2.7.1, or
+apt  install ruby
+
+See 'snap info ruby' for additional versions.
+
+legion@opendax:~$ rvm -v
+
+Command 'rvm' not found, but there are 21 similar ones.
+
+legion@opendax:~$ docker-compose -v
+docker-compose version 1.26.2, build eefe0d31
+legion@opendax:~$ git clone https://github.com/openware/opendax.git
+Cloning into 'opendax'...
+remote: Enumerating objects: 60, done.
+remote: Counting objects: 100% (60/60), done.
+remote: Compressing objects: 100% (42/42), done.
+remote: Total 2958 (delta 29), reused 37 (delta 18), pack-reused 2898
+Receiving objects: 100% (2958/2958), 455.96 KiB | 5.84 MiB/s, done.
+Resolving deltas: 100% (1743/1743), done.
+legion@opendax:~$ ls
+opendax
+legion@opendax:~$ cd opendax/
+legion@opendax:~/opendax$ ls
+Dockerfile  Gemfile  Gemfile.lock  LICENSE  README.md  Rakefile  VERSION  bin  compose  config  config.ru  data  docs  lib  spec  templates  terraform  vendor
+legion@opendax:~/opendax$ rvm install .
+
+Command 'rvm' not found, but there are 21 similar ones.
+
+legion@opendax:~/opendax$ gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+gpg: keybox '/home/legion/.gnupg/pubring.kbx' created
+gpg: key 105BD0E739499BDB: 8 signatures not checked due to missing keys
+gpg: /home/legion/.gnupg/trustdb.gpg: trustdb created
+gpg: key 105BD0E739499BDB: public key "Piotr Kuczynski <piotr.kuczynski@gmail.com>" imported
+gpg: key 3804BB82D39DC0E3: 108 signatures not checked due to missing keys
+gpg: key 3804BB82D39DC0E3: public key "Michal Papis (RVM signing) <mpapis@gmail.com>" imported
+gpg: no ultimately trusted keys found
+gpg: Total number processed: 2
+gpg:               imported: 2
+legion@opendax:~/opendax$ curl -sSL https://get.rvm.io | bash -s stable
+Downloading https://github.com/rvm/rvm/archive/1.29.10.tar.gz
+Downloading https://github.com/rvm/rvm/releases/download/1.29.10/1.29.10.tar.gz.asc
+gpg: Signature made Wed Mar 25 21:58:42 2020 UTC
+gpg:                using RSA key 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+gpg: Good signature from "Piotr Kuczynski <piotr.kuczynski@gmail.com>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 7D2B AF1C F37B 13E2 069D  6956 105B D0E7 3949 9BDB
+GPG verified '/home/legion/.rvm/archives/rvm-1.29.10.tgz'
+Installing RVM to /home/legion/.rvm/
+    Adding rvm PATH line to /home/legion/.profile /home/legion/.mkshrc /home/legion/.bashrc /home/legion/.zshrc.
+    Adding rvm loading line to /home/legion/.profile /home/legion/.bash_profile /home/legion/.zlogin.
+Installation of RVM in /home/legion/.rvm/ is almost complete:
+
+  * To start using RVM you need to run `source /home/legion/.rvm/scripts/rvm`
+    in all your open shell windows, in rare cases you need to reopen all shell windows.
+Thanks for installing RVM 🙏
+Please consider donating to our open collective to help us maintain RVM.
+
+👉  Donate: https://opencollective.com/rvm/donate
+
+
+legion@opendax:~/opendax$ source /home/legion/.rvm/scripts/rvm
+Required ruby-2.6.5 is not installed.
+To install do: 'rvm install "ruby-2.6.5"'
+legion@opendax:~/opendax$ rvm install "ruby-2.6.5
+> "
+sed: -e expression #1, char 13: unterminated address regex
+Searching for binary rubies, this might take some time.
+Found remote file https://rvm_io.global.ssl.fastly.net/binaries/ubuntu/18.04/x86_64/ruby-2.6.5.tar.bz2
+Checking requirements for ubuntu.
+Installing requirements for ubuntu.
+Updating system....
+Installing required packages: g++, gcc, autoconf, automake, bison, libc6-dev, libffi-dev, libgdbm-dev, libncurses5-dev, libsqlite3-dev, libtool, libyaml-dev, pkg-config, sqlite3, zlib1g-dev, libgmp-dev, libreadline-dev, libssl-dev..................................
+Requirements installation successful.
+ruby-2.6.5 - #configure
+ruby-2.6.5 - #download
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 18.7M  100 18.7M    0     0  20.0M      0 --:--:-- --:--:-- --:--:-- 20.0M
+ruby-2.6.5 - #validate archive
+ruby-2.6.5 - #extract
+ruby-2.6.5 - #validate binary
+ruby-2.6.5 - #setup
+ruby-2.6.5 - #gemset created /home/legion/.rvm/gems/ruby-2.6.5@global
+ruby-2.6.5 - #importing gemset /home/legion/.rvm/gemsets/global.gems..................................
+ruby-2.6.5 - #generating global wrappers.......
+ruby-2.6.5 - #gemset created /home/legion/.rvm/gems/ruby-2.6.5
+ruby-2.6.5 - #importing gemsetfile /home/legion/.rvm/gemsets/default.gems evaluated to empty gem list
+ruby-2.6.5 - #generating default wrappers.......
+sed: -e expression #1, char 13: unterminated address regex
+legion@opendax:~/opendax$ rvm install .
+Already installed ruby-2.6.5.
+To reinstall use:
+
+    rvm reinstall ruby-2.6.5
+
+legion@opendax:~/opendax$ rvm reinstall ruby-2.6.5
+ruby-2.6.5 - #removing rubies/ruby-2.6.5..
+Searching for binary rubies, this might take some time.
+Found remote file https://rvm_io.global.ssl.fastly.net/binaries/ubuntu/18.04/x86_64/ruby-2.6.5.tar.bz2
+Checking requirements for ubuntu.
+Requirements installation successful.
+ruby-2.6.5 - #configure
+ruby-2.6.5 - #download
+ruby-2.6.5 - #validate archive
+ruby-2.6.5 - #extract
+ruby-2.6.5 - #validate binary
+ruby-2.6.5 - #setup
+ruby-2.6.5 - #gemset created /home/legion/.rvm/gems/ruby-2.6.5@global
+ruby-2.6.5 - #importing gemset /home/legion/.rvm/gemsets/global.gems..................................
+ruby-2.6.5 - #generating global wrappers.......
+ruby-2.6.5 - #gemset created /home/legion/.rvm/gems/ruby-2.6.5
+ruby-2.6.5 - #importing gemsetfile /home/legion/.rvm/gemsets/default.gems evaluated to empty gem list
+ruby-2.6.5 - #generating default wrappers.......
+Making gemset ruby-2.6.5 pristine........................................................................
+Making gemset ruby-2.6.5@global pristine.........................................................................
+legion@opendax:~/opendax$ bundle install
+You must use Bundler 2 or greater with this lockfile.
+legion@opendax:~/opendax$ gem update --system
+Updating rubygems-update
+Fetching rubygems-update-3.1.4.gem
+Successfully installed rubygems-update-3.1.4
+Parsing documentation for rubygems-update-3.1.4
+Installing ri documentation for rubygems-update-3.1.4
+Installing darkfish documentation for rubygems-update-3.1.4
+Done installing documentation for rubygems-update after 71 seconds
+Parsing documentation for rubygems-update-3.1.4
+Done installing documentation for rubygems-update after 0 seconds
+Installing RubyGems 3.1.4
+  Successfully built RubyGem
+  Name: bundler
+  Version: 2.1.4
+  File: bundler-2.1.4.gem
+Bundler 2.1.4 installed
+RubyGems 3.1.4 installed
+Regenerating binstubs
+Parsing documentation for rubygems-3.1.4
+Installing ri documentation for rubygems-3.1.4
+
+=== 3.1.4 / 2020-06-03
+
+Minor enhancements:
+
+* Deprecate rubyforge_project attribute only during build
+  time. Pull request #3609 by Josef Šimánek.
+* Update links. Pull request #3610 by Josef Šimánek.
+* Run CI at 3.1 branch head as well. Pull request #3677 by Josef Šimánek.
+* Remove failing ubuntu-rvm CI flow. Pull request #3611 by
+  Josef Šimánek.
+
+=== 3.1.3 / 2020-05-05
+
+Minor enhancements:
+
+* Resolver: require NameTuple before use. Pull request #3171 by Olle
+  Jonsson.
+* Use absolute paths with autoload. Pull request #3100 by David Rodríguez.
+* Avoid changing $SOURCE_DATE_EPOCH. Pull request #3088 by Ellen Marie
+  Dash.
+* Use Bundler 2.1.4. Pull request #3072 by Hiroshi SHIBATA.
+* Add tests to check if Gem.ruby_version works with ruby git master.
+  Pull request #3049 by Yusuke Endoh.
+
+Bug fixes:
+
+* Fix platform comparison check in #contains_requirable_file?. Pull
+  request #3495 by Benoit Daloze.
+* Improve gzip errors logging. Pull request #3485 by David Rodríguez.
+* Fix incorrect `gem uninstall --all` message. Pull request #3483 by David
+  Rodríguez.
+* Fix incorrect bundler version being required. Pull request #3458 by
+  David Rodríguez.
+* Fix gem install from a gemdeps file with complex dependencies.
+  Pull request #3054 by Luis Sagastume.
+
+=== 3.1.2 / 2019-12-20
+
+Minor enhancements:
+
+* Restore non prompting `gem update --system` behavior. Pull request #3040
+  by David Rodríguez.
+* Show only release notes for new code installed. Pull request #3041 by
+  David Rodríguez.
+* Inform about installed `bundle` executable after `gem update --system`.
+  Pull request #3042 by David Rodríguez.
+* Use Bundler 2.1.2. Pull request #3043 by SHIBATA Hiroshi.
+
+Bug fixes:
+
+* Require `uri` in source.rb. Pull request #3034 by mihaibuzgau.
+* Fix `gem update --system --force`. Pull request #3035 by David
+  Rodríguez.
+* Move `require uri` to source_list. Pull request #3038 by mihaibuzgau.
+
+=== 3.1.1 / 2019-12-16
+
+Bug fixes:
+
+* Vendor Bundler 2.1.0 again. The version of Bundler with
+  RubyGems 3.1.0 was Bundler 2.1.0.pre.3. Pull request #3029 by
+  SHIBATA Hiroshi.
+
+=== 3.1.0 / 2019-12-16
+
+Major enhancements:
+
+* Vendor bundler 2.1. Pull request #3028 by David Rodríguez.
+
+Minor enhancements:
+
+* Check for rubygems.org typo squatting sources. Pull request #2999 by
+  Luis Sagastume.
+* Refactor remote fetcher. Pull request #3017 by David Rodríguez.
+* Lazily load `open3`. Pull request #3001 by David Rodríguez.
+* Remove `delegate` dependency. Pull request #3002 by David Rodríguez.
+* Lazily load `uri`. Pull request #3005 by David Rodríguez.
+* Lazily load `rubygems/gem_runner` during tests. Pull request #3009 by
+  David Rodríguez.
+* Use bundler to manage development dependencies. Pull request #3012 by
+  David Rodríguez.
+
+Bug fixes:
+
+* Remove unnecessary executable flags. Pull request #2982 by David
+  Rodríguez.
+* Remove configuration that contained a typo. Pull request #2989 by David
+  Rodríguez.
+
+Compatibility changes:
+
+* Remove 1.8.7 leftovers. Pull request #2972 by David Rodríguez.
+* Deprecate `gem generate_index --modern` and `gem generate_index
+  --no-modern`. Pull request #2992 by David Rodríguez.
+
+=== 3.1.0.pre3 / 2019-11-11
+
+Minor enhancements:
+
+* Fix gem pristine not accounting for user installed gems. Pull request
+  #2914 by Luis Sagastume.
+* Refactor keyword argument test for Ruby 2.7. Pull request #2947 by
+  SHIBATA Hiroshi.
+* Fix errors at frozen Gem::Version. Pull request #2949 by Nobuyoshi
+  Nakada.
+* Remove taint usage on Ruby 2.7+. Pull request #2951 by Jeremy Evans.
+* Check Manifest.txt is up to date. Pull request #2953 by David Rodríguez.
+* Clarify symlink conditionals in tests. Pull request #2962 by David
+  Rodríguez.
+* Update command line parsing to work under ps. Pull request #2966 by
+  David Rodríguez.
+* Properly test `Gem::Specifications.stub_for`. Pull request #2970 by
+  David Rodríguez.
+* Fix Gem::LOADED_SPECS_MUTEX handling for recursive locking. Pull request
+  #2985 by MSP-Greg.
+
+=== 3.1.0.pre2 / 2019-10-15
+
+Minor enhancements:
+
+* Optimize Gem::Package::TarReader#each. Pull request #2941 by Jean byroot
+  Boussier.
+* Time comparison around date boundary. Pull request #2944 by Nobuyoshi
+  Nakada.
+
+=== 3.1.0.pre1 / 2019-10-08
+
+Major enhancements:
+
+* Try to use bundler-2.1.0.pre.2. Pull request #2923 by SHIBATA Hiroshi.
+* [Require] Ensure -I beats a default gem. Pull request #1868 by Samuel
+  Giddins.
+* [Specification] Prefer user-installed gems to default gems. Pull request
+  #2112 by Samuel Giddins.
+* Multifactor authentication for yank command. Pull request #2514 by Qiu
+  Chaofan.
+* Autoswitch to exact bundler version if present. Pull request #2583 by
+  David Rodríguez.
+
+Minor enhancements:
+
+* Fix Gem::Requirement equality comparison when ~> operator is used. Pull
+  request #2554 by Grey Baker.
+* Don't use a proxy if https_proxy env var is empty. Pull request #2567 by
+  Luis Sagastume.
+* Fix typo in specs warning. Pull request #2585 by Rui.
+* Bin/gem: remove initial empty line. Pull request #2602 by Kenyon Ralph.
+* Avoid rdoc hook when it's failed to load rdoc library. Pull request
+  #2604 by SHIBATA Hiroshi.
+* Refactor get_proxy_from_env logic. Pull request #2611 by Luis Sagastume.
+* Allow to easily bisect flaky failures. Pull request #2626 by David
+  Rodríguez.
+* Fix `--ignore-dependencies` flag not installing platform specific gems.
+  Pull request #2631 by David Rodríguez.
+* Make `gem install --explain` list platforms. Pull request #2634 by David
+  Rodríguez.
+* Make `gem update --explain` list platforms. Pull request #2635 by David
+  Rodríguez.
+* Refactoring install and update explanations. Pull request #2643 by David
+  Rodríguez.
+* Restore transitiveness of version comparison. Pull request #2651 by
+  David Rodríguez.
+* Undo requirement sorting. Pull request #2652 by David Rodríguez.
+* Update dummy version of Bundler for #2581. Pull request #2584 by SHIBATA
+  Hiroshi.
+* Ignore to handle the different platform. Pull request #2672 by SHIBATA
+  Hiroshi.
+* Make Gem::Specification.default_stubs to public methods. Pull request
+  #2675 by SHIBATA Hiroshi.
+* Sort files and test_files in specifications. Pull request #2524 by
+  Christopher Baines.
+* Fix comment of Gem::Specification#required_ruby_version=. Pull request
+  #2732 by Alex Junger.
+* Config_file.rb - update path separator in ENV['GEMRC'] logic. Pull
+  request #2735 by MSP-Greg.
+* Fix `ruby setup.rb` warnings. Pull request #2737 by David Rodríguez.
+* Don't use regex delimiters when searching for a dependency. Pull request
+  #2738 by Luis Sagastume.
+* Refactor query command. Pull request #2739 by Luis Sagastume.
+* Don't remove default spec files from mapping after require. Pull request
+  #2741 by David Rodríguez.
+* Cleanup base test case. Pull request #2742 by David Rodríguez.
+* Simplify Specification#gems_dir. Pull request #2745 by David Rodríguez.
+* Fix test warning. Pull request #2746 by David Rodríguez.
+* Extract an `add_to_load_path` method. Pull request #2749 by David
+  Rodríguez.
+* Fix setup command if format_executable is true by default. Pull request
+  #2766 by Jeremy Evans.
+* Update the certificate files to make the test pass on Debian 10. Pull
+  request #2777 by Yusuke Endoh.
+* Write to the correct config file(.gemrc). Pull request #2779 by Luis
+  Sagastume.
+* Fix for large values in UID/GID fields in tar archives. Pull request
+  #2780 by Alexey Shein.
+* Lazy require stringio. Pull request #2781 by Luis Sagastume.
+* Make Gem::Specification#ruby_code handle OpenSSL::PKey::RSA objects.
+  Pull request #2782 by Luis Sagastume.
+* Fix setup command test for bundler with program_suffix. Pull request
+  #2783 by Sorah Fukumori.
+* Make sure `rake package` works. Pull request #2787 by David Rodríguez.
+* Synchronize access to the Gem::Specification::LOAD_CACHE Hash. Pull
+  request #2789 by Benoit Daloze.
+* Task to install rubygems to local system. Pull request #2795 by David
+  Rodríguez.
+* Add an attr_reader to Gem::Installer for the package instance variable.
+  Pull request #2796 by Daniel Berger.
+* Switch CI script to bash. Pull request #2799 by David Rodríguez.
+* Move gemcutter utilities code to Gem::Command. Pull request #2803 by
+  Luis Sagastume.
+* Add raw spec method to gem package. Pull request #2806 by Luis
+  Sagastume.
+* Improve `rake package` test error message. Pull request #2815 by David
+  Rodríguez.
+* Resolve `@@project_dir` from test file paths. Pull request #2843 by
+  Nobuyoshi Nakada.
+* Remove dead code in Gem::Validator. Pull request #2537 by Ellen Marie
+  Dash.
+* The date might have advanced since TODAY has been set. Pull request
+  #2938 by Nobuyoshi Nakada.
+* Remove old ci configurations. Pull request #2917 by SHIBATA Hiroshi.
+* Add Gem::Dependency identity. Pull request #2936 by Luis Sagastume.
+* Filter dependency type and name strictly. Pull request #2930 by SHIBATA
+  Hiroshi.
+* Always pass an encoding option to Zlib::GzipReader.wrap. Pull request
+  #2933 by Nobuyoshi Nakada.
+* Introduce default prerelease requirement. Pull request #2925 by David
+  Rodríguez.
+* Detect libc version, closes #2918. Pull request #2922 by fauno.
+* Use IAM role to extract security-credentials for EC2 instance. Pull
+  request #2894 by Alexander Pakulov.
+* Improve `gem uninstall --all`. Pull request #2893 by David Rodríguez.
+* Use `RbConfig::CONFIG['rubylibprefix']`. Pull request #2889 by Nobuyoshi
+  Nakada.
+* Build the first gemspec we found if no arguments are passed to gem
+  build. Pull request #2887 by Luis Sagastume.
+* $LOAD_PATH elements should be real paths. Pull request #2885 by
+  Nobuyoshi Nakada.
+* Use the standard RUBY_ENGINE_VERSION instead of JRUBY_VERSION. Pull
+  request #2864 by Benoit Daloze.
+* Cleanup after testing `rake package`. Pull request #2862 by David
+  Rodríguez.
+* Cherry-pick shushing deprecation warnings from ruby-core. Pull request
+  #2861 by David Rodríguez.
+* Ext/builder.rb cleanup. Pull request #2849 by Luis Sagastume.
+* Fix @ran_rake assignment in builder.rb. Pull request #2850 by Luis
+  Sagastume.
+* Remove test suite warnings. Pull request #2845 by Luis Sagastume.
+* Replace domain parameter with a parameter to suppress suggestions. Pull
+  request #2846 by Luis Sagastume.
+* Move default specifications dir definition out of BasicSpecification.
+  Pull request #2841 by Vít Ondruch.
+* There is no usage of @orig_env_* variables in test suite. Pull request
+  #2838 by SHIBATA Hiroshi.
+* Use File#open instead of Kernel#open in stub_specification.rb. Pull
+  request #2834 by Luis Sagastume.
+* Simplify #to_ruby code. Pull request #2825 by Nobuyoshi Nakada.
+* Add a gem attr to the Gem::Package class. Pull request #2828 by Daniel
+  Berger.
+* Remove useless TODO comment. Pull request #2818 by Luis Sagastume.
+
+Bug fixes:
+
+* Fix typos in History.txt. Pull request #2565 by Igor Zubkov.
+* Remove unused empty sources array. Pull request #2598 by Aaron
+  Patterson.
+* Fix windows specific executables generated by `gem install`. Pull
+  request #2628 by David Rodríguez.
+* Gem::Specification#to_ruby needs OpenSSL. Pull request #2937 by
+  Nobuyoshi Nakada.
+* Set SOURCE_DATE_EPOCH env var if not provided. Pull request #2882 by
+  Ellen Marie Dash.
+* Installer.rb - fix #windows_stub_script. Pull request #2876 by MSP-Greg.
+* Fixed deprecation message. Pull request #2867 by Nobuyoshi Nakada.
+* Fix requiring default gems to consider prereleases. Pull request #2728
+  by David Rodríguez.
+* Forbid `find_spec_for_exe` without an `exec_name`. Pull request #2706 by
+  David Rodríguez.
+* Do not prompt for passphrase when key can be loaded without it. Pull
+  request #2710 by Luis Sagastume.
+* Add missing wrapper. Pull request #2690 by David Rodríguez.
+* Remove long ago deprecated methods. Pull request #2704 by David
+  Rodríguez.
+* Renamed duplicate test. Pull request #2678 by Nobuyoshi Nakada.
+* File.exists? is deprecated. Pull request #2855 by SHIBATA Hiroshi.
+* Fixed to warn with shadowing outer local variable. Pull request #2856 by
+  SHIBATA Hiroshi.
+* Fix explain with ignore-dependencies. Pull request #2647 by David
+  Rodríguez.
+* Fix default gem executable installation when folder is not `bin/`. Pull
+  request #2649 by David Rodríguez.
+* Fix cryptic error on local and ignore-dependencies combination. Pull
+  request #2650 by David Rodríguez.
+
+Compatibility changes:
+
+* Remove commented code from command.rb. Pull request #2620 by Luis
+  Sagastume.
+* Suppress keywords warning. Pull request #2934 by Nobuyoshi Nakada.
+* Suppress Ruby 2.7's real kwargs warning. Pull request #2912 by Koichi
+  ITO.
+* Fix Kernel#warn override. Pull request #2911 by Jeremy Evans.
+* Make deprecate Gem::RubyGemsVersion and Gem::ConfigMap. Pull request
+  #2857 by SHIBATA Hiroshi.
+* Deprecate Gem::RemoteFetcher#fetch_size. Pull request #2833 by Luis
+  Sagastume.
+* Remove conflict.rb code that was supposed to be removed in Rubygems 3.
+  Pull request #2802 by Luis Sagastume.
+* Explicitly deprecate `rubyforge_project`. Pull request #2798 by David
+  Rodríguez.
+* Compatibility cleanups. Pull request #2754 by David Rodríguez.
+* Remove `others_possible` activation request param. Pull request #2747 by
+  David Rodríguez.
+* Remove dependency installer deprecated code. Pull request #2740 by Luis
+  Sagastume.
+* Deprecate unused Gem::Installer#unpack method. Pull request #2715 by Vít
+  Ondruch.
+* Removed guard condition with USE_BUNDLER_FOR_GEMDEPS. Pull request #2716
+  by SHIBATA Hiroshi.
+* Skip deprecation warning during specs. Pull request #2718 by David
+  Rodríguez.
+* Remove QuickLoader reference. Pull request #2719 by David Rodríguez.
+* Removed circular require. Pull request #2679 by Nobuyoshi Nakada.
+* Removed needless environmental variable for Travis CI. Pull request
+  #2685 by SHIBATA Hiroshi.
+* Deprecate a few unused methods. Pull request #2674 by David Rodríguez.
+* Removing yaml require. Pull request #2538 by Luciano Sousa.
+* Add deprecation warnings for cli options. Pull request #2607 by Luis
+  Sagastume.
+
+Style changes:
+
+* Enable `Layout/SpaceInsideParens` rubocop cop. Pull request #2630 by
+  David Rodríguez.
+* Remove some extra empty lines from the repo. Pull request #2669 by David
+  Rodríguez.
+* Enable Style/EmptyLinesAroundClassBody rubocop cop. Pull request #2636
+  by David Rodríguez.
+* Enable Style/BlockDelimiters rubocop cop. Pull request #2640 by David
+  Rodríguez.
+* Enable Layout/SpaceAroundOperators rubocop cop. Pull request #2642 by
+  David Rodríguez.
+* Rubocop 0.71. Pull request #2785 by David Rodríguez.
+
+
+------------------------------------------------------------------------------
+
+RubyGems installed the following executables:
+        /home/legion/.rvm/rubies/ruby-2.6.5/bin/gem
+        /home/legion/.rvm/rubies/ruby-2.6.5/bin/bundle
+
+Ruby Interactive (ri) documentation was installed. ri is kind of like man
+pages for Ruby libraries. You may access it like this:
+  ri Classname
+  ri Classname.class_method
+  ri Classname#instance_method
+If you do not wish to install this documentation in the future, use the
+--no-document flag, or set it as the default in your ~/.gemrc file. See
+'gem help env' for details.
+
+RubyGems system software updated
+legion@opendax:~/opendax$ gem install bundler
+Fetching bundler-2.1.4.gem
+Successfully installed bundler-2.1.4
+Parsing documentation for bundler-2.1.4
+Installing ri documentation for bundler-2.1.4
+Done installing documentation for bundler after 3 seconds
+1 gem installed
+legion@opendax:~/opendax$ bundler update --bundler
+Fetching gem metadata from https://rubygems.org/.......
+Fetching rake 13.0.1
+Installing rake 13.0.1
+Fetching bump 0.9.0
+Installing bump 0.9.0
+Using bundler 2.1.4
+Fetching diff-lcs 1.3
+Installing diff-lcs 1.3
+Fetching multipart-post 2.1.1
+Installing multipart-post 2.1.1
+Fetching faraday 1.0.0
+Installing faraday 1.0.0
+Fetching jwt 2.2.1
+Installing jwt 2.2.1
+Fetching ruby2_keywords 0.0.2
+Installing ruby2_keywords 0.0.2
+Fetching mustermann 1.1.1
+Installing mustermann 1.1.1
+Fetching nio4r 2.5.2
+Installing nio4r 2.5.2 with native extensions
+Fetching puma 4.3.5
+Installing puma 4.3.5 with native extensions
+Fetching rack 2.2.3
+Installing rack 2.2.3
+Fetching rack-protection 2.0.8.1
+Installing rack-protection 2.0.8.1
+Fetching rspec-support 3.9.2
+Installing rspec-support 3.9.2
+Fetching rspec-core 3.9.1
+Installing rspec-core 3.9.1
+Fetching rspec-expectations 3.9.0
+Installing rspec-expectations 3.9.0
+Fetching rspec-mocks 3.9.1
+Installing rspec-mocks 3.9.1
+Fetching rspec 3.9.0
+Installing rspec 3.9.0
+Fetching tilt 2.0.10
+Installing tilt 2.0.10
+Fetching sinatra 2.0.8.1
+Installing sinatra 2.0.8.1
+Fetching sshkey 2.0.0
+Installing sshkey 2.0.0
+Bundle updated!
+legion@opendax:~/opendax$ bundle install
+Using rake 13.0.1
+Using bump 0.9.0
+Using bundler 2.1.4
+Using diff-lcs 1.3
+Using multipart-post 2.1.1
+Using faraday 1.0.0
+Using jwt 2.2.1
+Using ruby2_keywords 0.0.2
+Using mustermann 1.1.1
+Using nio4r 2.5.2
+Using puma 4.3.5
+Using rack 2.2.3
+Using rack-protection 2.0.8.1
+Using rspec-support 3.9.2
+Using rspec-core 3.9.1
+Using rspec-expectations 3.9.0
+Using rspec-mocks 3.9.1
+Using rspec 3.9.0
+Using tilt 2.0.10
+Using sinatra 2.0.8.1
+Using sshkey 2.0.0
+Bundle complete! 9 Gemfile dependencies, 21 gems now installed.
+Use `bundle info [gemname]` to see where a bundled gem is installed.
+legion@opendax:~/opendax$ rake -T
+rake db:console                       # Database Console
+rake db:create                        # Create database
+rake db:drop                          # Drop all databases
+rake db:load                          # Load database dump
+rake docker:clean                     # Clean up all docker volumes
+rake docker:down                      # Stop all runnning docker contrainers
+rake payload:send[service,image,url]  # Generate JWT
+rake render:config                    # Render configuration and compose files and keys
+rake service:all[command]             # Run the micro app with dependencies (does not run Optional)
+rake service:app[command]             # Run mikro app (barong, peatio)
+rake service:arke_maker[command]      # [Optional] Run arke-maker
+rake service:backend[command]         # Run backend (vault db redis rabbitmq)
+rake service:cryptonodes[command]     # [Optional] Run cryptonodes
+rake service:daemons[command]         # [Optional] Run peatio daemons (rango, peatio daemons)
+rake service:frontend[command]        # Run the frontend application
+rake service:influxdb[command]        # Run influxdb
+rake service:monitoring[command]      # [Optional] Run monitoring
+rake service:proxy[command]           # Run Traefik (reverse-proxy)
+rake service:setup[command]           # Run setup hooks for peatio, barong
+rake service:superset[command]        # [Optional] Run superset
+rake service:tower[command]           # Run the tower application
+rake service:utils[command]           # [Optional] Run utils (mailer)
+rake terraform:apply                  # Apply the Terraform configuration
+rake terraform:destroy                # Destroy the Terraform infrastructure
+rake terraform:init                   # Initialize the Terraform configuration
+rake toolbox:run                      # Run the toolbox
+rake vault:setup                      # Initialize, unseal and set secrets for Vault
+rake vendor:clone                     # Clone the frontend apps repos into vendor/
+rake wallet:create[kind,url,secret]   # Generate ethereum wallet from a cryptonode
+legion@opendax:~/opendax$ nano /etc/hosts
+legion@opendax:~/opendax$ sudo nano /etc/hosts
+legion@opendax:~/opendax$ rake service:all
+Rendering ./terraform/terraform.tfvars
+Rendering ./config/rango.env
+Rendering ./config/arke.env
+Rendering ./config/mysql/innodb.cnf
+Rendering ./config/toolbox.yaml
+Rendering ./config/peatio.env
+Rendering ./config/bitcoin.conf
+Rendering ./config/barong.env
+Rendering ./config/barong/management_api.yml
+Rendering ./config/barong/seeds.yml
+Rendering ./config/applogic/management_api_v2.yml
+Rendering ./config/applogic/schedule.yml
+Rendering ./config/applogic.env
+Rendering ./config/arke/strategies.yml
+Rendering ./config/litecoin.conf
+Rendering ./config/gateway/envoy.yaml
+Rendering ./config/peatio/seed/blockchains.yml
+Rendering ./config/peatio/seed/accounts.yml
+Rendering ./config/peatio/seed/trading_fees.yml
+Rendering ./config/peatio/seed/markets.yml
+Rendering ./config/peatio/seed/wallets.yml
+Rendering ./config/peatio/seed/currencies.yml
+Rendering ./config/peatio/management_api_v1.yml
+Rendering ./config/frontend/tower.js
+Rendering ./config/frontend/env.js
+Rendering ./config/mailer.yml
+Rendering ./config/finex/rsa-key.pub
+Rendering ./config/finex/config.yaml
+Rendering ./compose/gateway.yaml
+Rendering ./compose/daemons.yaml
+Rendering ./compose/backend.yaml
+Rendering ./compose/frontend.yaml
+Rendering ./compose/app.yaml
+Rendering ./compose/vendor.yaml
+Rendering ./compose/proxy.yaml
+Rendering ./compose/monitoring.yaml
+Rendering ./compose/superset.yaml
+Rendering ./compose/cryptonodes.yaml
+Rendering ./compose/arke.yaml
+Rendering ./.env
+----- Starting the proxy -----
+docker-compose up -d proxy
+ERROR: Couldn't connect to Docker daemon at http+docker://localhost - is it running?
+
+If it's at a non-standard location, specify the URL with the DOCKER_HOST environment variable.
+rake aborted!
+Command failed with status (1): [docker-compose up -d proxy...]
+lib/tasks/service.rake:25:in `start'
+lib/tasks/service.rake:7:in `call'
+lib/tasks/service.rake:7:in `block (2 levels) in <top (required)>'
+lib/tasks/service.rake:33:in `block (2 levels) in <top (required)>'
+lib/tasks/service.rake:277:in `start'
+lib/tasks/service.rake:7:in `call'
+lib/tasks/service.rake:7:in `block (2 levels) in <top (required)>'
+lib/tasks/service.rake:302:in `block (2 levels) in <top (required)>'
+/home/legion/.rvm/gems/ruby-2.6.5/gems/rake-13.0.1/exe/rake:27:in `<top (required)>'
+/home/legion/.rvm/gems/ruby-2.6.5/bin/ruby_executable_hooks:24:in `eval'
+/home/legion/.rvm/gems/ruby-2.6.5/bin/ruby_executable_hooks:24:in `<main>'
+Tasks: TOP => service:proxy
+(See full trace by running task with --trace)
+legion@opendax:~/opendax$ sudo nano /etc/hosts
+legion@opendax:~/opendax$ rake service:all
+Rendering ./terraform/terraform.tfvars
+Rendering ./config/rango.env
+Rendering ./config/arke.env
+Rendering ./config/mysql/innodb.cnf
+Rendering ./config/toolbox.yaml
+Rendering ./config/peatio.env
+Rendering ./config/bitcoin.conf
+Rendering ./config/barong.env
+Rendering ./config/barong/management_api.yml
+Rendering ./config/barong/seeds.yml
+Rendering ./config/applogic/management_api_v2.yml
+Rendering ./config/applogic/schedule.yml
+Rendering ./config/applogic.env
+Rendering ./config/arke/strategies.yml
+Rendering ./config/litecoin.conf
+Rendering ./config/gateway/envoy.yaml
+Rendering ./config/peatio/seed/blockchains.yml
+Rendering ./config/peatio/seed/accounts.yml
+Rendering ./config/peatio/seed/trading_fees.yml
+Rendering ./config/peatio/seed/markets.yml
+Rendering ./config/peatio/seed/wallets.yml
+Rendering ./config/peatio/seed/currencies.yml
+Rendering ./config/peatio/management_api_v1.yml
+Rendering ./config/frontend/tower.js
+Rendering ./config/frontend/env.js
+Rendering ./config/mailer.yml
+Rendering ./config/finex/rsa-key.pub
+Rendering ./config/finex/config.yaml
+Rendering ./compose/gateway.yaml
+Rendering ./compose/daemons.yaml
+Rendering ./compose/backend.yaml
+Rendering ./compose/frontend.yaml
+Rendering ./compose/app.yaml
+Rendering ./compose/vendor.yaml
+Rendering ./compose/proxy.yaml
+Rendering ./compose/monitoring.yaml
+Rendering ./compose/superset.yaml
+Rendering ./compose/cryptonodes.yaml
+Rendering ./compose/arke.yaml
+Rendering ./.env
+----- Starting the proxy -----
+docker-compose up -d proxy
+ERROR: Couldn't connect to Docker daemon at http+docker://localhost - is it running?
+
+If it's at a non-standard location, specify the URL with the DOCKER_HOST environment variable.
+rake aborted!
+Command failed with status (1): [docker-compose up -d proxy...]
+lib/tasks/service.rake:25:in `start'
+lib/tasks/service.rake:7:in `call'
+lib/tasks/service.rake:7:in `block (2 levels) in <top (required)>'
+lib/tasks/service.rake:33:in `block (2 levels) in <top (required)>'
+lib/tasks/service.rake:277:in `start'
+lib/tasks/service.rake:7:in `call'
+lib/tasks/service.rake:7:in `block (2 levels) in <top (required)>'
+lib/tasks/service.rake:302:in `block (2 levels) in <top (required)>'
+/home/legion/.rvm/gems/ruby-2.6.5/gems/rake-13.0.1/exe/rake:27:in `<top (required)>'
+/home/legion/.rvm/gems/ruby-2.6.5/bin/ruby_executable_hooks:24:in `eval'
+/home/legion/.rvm/gems/ruby-2.6.5/bin/ruby_executable_hooks:24:in `<main>'
+Tasks: TOP => service:proxy
+(See full trace by running task with --trace)
+legion@opendax:~/opendax$ sudo nano /etc/hosts
+legion@opendax:~/opendax$ sudo rake service:all
+sudo: rake: command not found
+legion@opendax:~/opendax$ sudo su
+root@opendax:/home/legion/opendax# rake service:all
+
+Command 'rake' not found, but can be installed with:
+
+snap install ruby  # version 2.7.1, or
+apt  install rake
+
+See 'snap info ruby' for additional versions.
+
+root@opendax:/home/legion/opendax# exit
+exit
+legion@opendax:~/opendax$ rake -T
+rake db:console                       # Database Console
+rake db:create                        # Create database
+rake db:drop                          # Drop all databases
+rake db:load                          # Load database dump
+rake docker:clean                     # Clean up all docker volumes
+rake docker:down                      # Stop all runnning docker contrainers
+rake payload:send[service,image,url]  # Generate JWT
+rake render:config                    # Render configuration and compose files and keys
+rake service:all[command]             # Run the micro app with dependencies (does not run Optional)
+rake service:app[command]             # Run mikro app (barong, peatio)
+rake service:arke_maker[command]      # [Optional] Run arke-maker
+rake service:backend[command]         # Run backend (vault db redis rabbitmq)
+rake service:cryptonodes[command]     # [Optional] Run cryptonodes
+rake service:daemons[command]         # [Optional] Run peatio daemons (rango, peatio daemons)
+rake service:frontend[command]        # Run the frontend application
+rake service:influxdb[command]        # Run influxdb
+rake service:monitoring[command]      # [Optional] Run monitoring
+rake service:proxy[command]           # Run Traefik (reverse-proxy)
+rake service:setup[command]           # Run setup hooks for peatio, barong
+rake service:superset[command]        # [Optional] Run superset
+rake service:tower[command]           # Run the tower application
+rake service:utils[command]           # [Optional] Run utils (mailer)
+rake terraform:apply                  # Apply the Terraform configuration
+rake terraform:destroy                # Destroy the Terraform infrastructure
+rake terraform:init                   # Initialize the Terraform configuration
+rake toolbox:run                      # Run the toolbox
+rake vault:setup                      # Initialize, unseal and set secrets for Vault
+rake vendor:clone                     # Clone the frontend apps repos into vendor/
+rake wallet:create[kind,url,secret]   # Generate ethereum wallet from a cryptonode
+legion@opendax:~/opendax$ sudo rake service:all
+sudo: rake: command not found
+legion@opendax:~/opendax$ rake service:all
+Rendering ./terraform/terraform.tfvars
+Rendering ./config/rango.env
+Rendering ./config/arke.env
+Rendering ./config/mysql/innodb.cnf
+Rendering ./config/toolbox.yaml
+Rendering ./config/peatio.env
+Rendering ./config/bitcoin.conf
+Rendering ./config/barong.env
+Rendering ./config/barong/management_api.yml
+Rendering ./config/barong/seeds.yml
+Rendering ./config/applogic/management_api_v2.yml
+Rendering ./config/applogic/schedule.yml
+Rendering ./config/applogic.env
+Rendering ./config/arke/strategies.yml
+Rendering ./config/litecoin.conf
+Rendering ./config/gateway/envoy.yaml
+Rendering ./config/peatio/seed/blockchains.yml
+Rendering ./config/peatio/seed/accounts.yml
+Rendering ./config/peatio/seed/trading_fees.yml
+Rendering ./config/peatio/seed/markets.yml
+Rendering ./config/peatio/seed/wallets.yml
+Rendering ./config/peatio/seed/currencies.yml
+Rendering ./config/peatio/management_api_v1.yml
+Rendering ./config/frontend/tower.js
+Rendering ./config/frontend/env.js
+Rendering ./config/mailer.yml
+Rendering ./config/finex/rsa-key.pub
+Rendering ./config/finex/config.yaml
+Rendering ./compose/gateway.yaml
+Rendering ./compose/daemons.yaml
+Rendering ./compose/backend.yaml
+Rendering ./compose/frontend.yaml
+Rendering ./compose/app.yaml
+Rendering ./compose/vendor.yaml
+Rendering ./compose/proxy.yaml
+Rendering ./compose/monitoring.yaml
+Rendering ./compose/superset.yaml
+Rendering ./compose/cryptonodes.yaml
+Rendering ./compose/arke.yaml
+Rendering ./.env
+----- Starting the proxy -----
+docker-compose up -d proxy
+ERROR: Couldn't connect to Docker daemon at http+docker://localhost - is it running?
+
+If it's at a non-standard location, specify the URL with the DOCKER_HOST environment variable.
+rake aborted!
+Command failed with status (1): [docker-compose up -d proxy...]
+lib/tasks/service.rake:25:in `start'
+lib/tasks/service.rake:7:in `call'
+lib/tasks/service.rake:7:in `block (2 levels) in <top (required)>'
+lib/tasks/service.rake:33:in `block (2 levels) in <top (required)>'
+lib/tasks/service.rake:277:in `start'
+lib/tasks/service.rake:7:in `call'
+lib/tasks/service.rake:7:in `block (2 levels) in <top (required)>'
+lib/tasks/service.rake:302:in `block (2 levels) in <top (required)>'
+/home/legion/.rvm/gems/ruby-2.6.5/gems/rake-13.0.1/exe/rake:27:in `<top (required)>'
+/home/legion/.rvm/gems/ruby-2.6.5/bin/ruby_executable_hooks:24:in `eval'
+/home/legion/.rvm/gems/ruby-2.6.5/bin/ruby_executable_hooks:24:in `<main>'
+Tasks: TOP => service:proxy
+(See full trace by running task with --trace)
+legion@opendax:~/opendax$ legion@SkyNet:~$ gcloud beta compute ssh --zone "us-central1-a" "opendax" --project "chef-216716"
+legion@SkyNet:~$: command not found
+legion@opendax:~/opendax$ Warning: Permanently added 'compute.3258943189778481610' (ECDSA) to the list of known hosts.
+-bash: syntax error near unexpected token `('
+legion@opendax:~/opendax$ Welcome to Ubuntu 18.04.4 LTS (GNU/Linux 5.0.0-1034-gcp x86_64)
+-bash: syntax error near unexpected token `('
+legion@opendax:~/opendax$
+legion@opendax:~/opendax$  * Documentation:  https://help.ubuntu.com
+Dockerfile: command not found
+legion@opendax:~/opendax$  * Management:     https://landscape.canonical.com
+Dockerfile: command not found
+legion@opendax:~/opendax$  * Support:        https://ubuntu.com/advantage
+Dockerfile: command not found
+legion@opendax:~/opendax$
+legion@opendax:~/opendax$   System information as of Sat Aug 22 20:33:20 UTC 2020
+System: command not found
+legion@opendax:~/opendax$
+legion@opendax:~/opendax$   System load:  0.17               Processes:              106
+System: command not found
+legion@opendax:~/opendax$   Usage of /:   0.6% of 290.58GB   Users logged in:        0
+
+Command 'Usage' not found, did you mean:
+
+  command 'osage' from deb graphviz
+  command 'sage' from deb sagemath-common
+
+Try: apt install <deb name>
+
+legion@opendax:~/opendax$   Memory usage: 4%                 IP address for ens4:    10.128.0.2
+Memory: command not found
+legion@opendax:~/opendax$   Swap usage:   0%                 IP address for docker0: 172.17.0.1
+Swap: command not found
+legion@opendax:~/opendax$
+legion@opendax:~/opendax$ 106 packages can be updated.
+106: command not found
+legion@opendax:~/opendax$ 64 updates are security updates.
+64: command not found
+legion@opendax:~/opendax$
+legion@opendax:~/opendax$
+legion@opendax:~/opendax$
+legion@opendax:~/opendax$ The programs included with the Ubuntu system are free software;
+
+Command 'The' not found, did you mean:
+
+  command 'he' from deb node-he
+  command 'the' from deb the
+
+Try: apt install <deb name>
+
+legion@opendax:~/opendax$ the exact distribution terms for each program are described in the
+
+Command 'the' not found, but can be installed with:
+
+apt install the
+Please ask your administrator.
+
+legion@opendax:~/opendax$ individual files in /usr/share/doc/*/copyright.
+individual: command not found
+legion@opendax:~/opendax$
+legion@opendax:~/opendax$ Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+Ubuntu: command not found
+legion@opendax:~/opendax$ applicable law.
+applicable: command not found
+legion@opendax:~/opendax$
+legion@opendax:~/opendax$ legion@opendax:~$ sudo systemctl status docker
+legion@opendax:~$: command not found
+legion@opendax:~/opendax$ ● docker.service - Docker Application Container Engine
+●: command not found
+legion@opendax:~/opendax$    Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
+-bash: syntax error near unexpected token `('
+legion@opendax:~/opendax$    Active: active (running) since Sat 2020-08-22 20:27:09 UTC; 6min ago
+-bash: syntax error near unexpected token `('
+legion@opendax:~/opendax$      Docs: https://docs.docker.com
+Docs:: command not found
+legion@opendax:~/opendax$  Main PID: 8583 (dockerd)
+-bash: syntax error near unexpected token `('
+legion@opendax:~/opendax$     Tasks: 10
+Tasks:: command not found
+legion@opendax:~/opendax$    CGroup: /system.slice/docker.service
+CGroup:: command not found
+legion@opendax:~/opendax$            └─8583 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+└─8583: command not found
+legion@opendax:~/opendax$
+legion@opendax:~/opendax$ Aug 22 20:27:09 opendax dockerd[8583]: time="2020-08-22T20:27:09.148591369Z" level=warning msg="Your kernel does not support cgroup rt runtime"
+
+Command 'Aug' not found, did you mean:
+
+  command 'hug' from deb python3-hug
+
+Try: apt install <deb name>
+
+legion@opendax:~/opendax$ Aug 22 20:27:09 opendax dockerd[8583]: time="2020-08-22T20:27:09.148599680Z" level=warning msg="Your kernel does not support cgroup blkio weight"
+
+Command 'Aug' not found, did you mean:
+
+  command 'hug' from deb python3-hug
+
+Try: apt install <deb name>
+
+legion@opendax:~/opendax$ Aug 22 20:27:09 opendax dockerd[8583]: time="2020-08-22T20:27:09.148608690Z" level=warning msg="Your kernel does not support cgroup blkio weight_device"
+
+Command 'Aug' not found, did you mean:
+
+  command 'hug' from deb python3-hug
+
+Try: apt install <deb name>
+
+legion@opendax:~/opendax$ Aug 22 20:27:09 opendax dockerd[8583]: time="2020-08-22T20:27:09.148858171Z" level=info msg="Loading containers: start."
+
+Command 'Aug' not found, did you mean:
+
+  command 'hug' from deb python3-hug
+
+Try: apt install <deb name>
+
+legion@opendax:~/opendax$ Aug 22 20:27:09 opendax dockerd[8583]: time="2020-08-22T20:27:09.293744536Z" level=info msg="Default bridge (docker0) is assigned with an IP address 172.17.0.0/16. Da
+> Aug 22 20:27:09 opendax dockerd[8583]: time="2020-08-22T20:27:09.363269841Z" level=info msg="Loading containers: done."
+> Aug 22 20:27:09 opendax dockerd[8583]: time="2020-08-22T20:27:09.383391152Z" level=info msg="Docker daemon" commit=48a66213fe graphdriver(s)=overlay2 version=19.03.12
+> Aug 22 20:27:09 opendax dockerd[8583]: time="2020-08-22T20:27:09.383527776Z" level=info msg="Daemon has completed initialization"
+> Aug 22 20:27:09 opendax dockerd[8583]: time="2020-08-22T20:27:09.417991619Z" level=info msg="API listen on /var/run/docker.sock"
+> Aug 22 20:27:09 opendax systemd[1]: Started Docker Application Container Engine.
+> lines 1-19/19 (END)
+> legion@opendax:~$ rvm -v
+>
+> Command 'rvm' not found, but there are 21 similar ones.
+>
+> legion@opendax:~$ docker-compose -v
+> docker-compose version 1.26.2, build eefe0d31
+> legion@opendax:~$ ruby -v
+>
+> Command 'ruby' not found, but can be installed with:
+>
+> snap install ruby  # version 2.7.1, or
+> apt  install ruby
+>
+>
