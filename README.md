@@ -18,7 +18,7 @@ Start up the containers
 
 Do not use the docker MySQL but use the deployed Cloud SQL.
 
-
+### Run project
 1.Install Pulumi on Linux by running the installation script:  
 curl -fsSL https://get.pulumi.com | sh
 
