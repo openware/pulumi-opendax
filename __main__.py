@@ -12,11 +12,9 @@ apt -y update
 apt -y install make apt-transport-https ca-certificates curl git software-properties-common
 git clone https://github.com/openware/opendax.git
 gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
 curl -sSL https://get.rvm.io | bash -s stable
-source ~/.rvm/scripts/rvm
-rvm reinstall ruby-2.6.5
-add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
 apt -y update
 sudo apt install -y docker-ce
 systemctl start docker
@@ -24,6 +22,8 @@ systemctl enable docker
 curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 usermod -aG docker $USER
+source ~/.rvm/scripts/rvm
+rvm reinstall ruby-2.6.5
 """
 
 instance_disk_size = 300
@@ -34,7 +34,7 @@ compute_instance = compute.Instance(
     machine_type="n1-standard-2",
     boot_disk={
         "initializeParams": {
-            "image": "ubuntu-os-cloud/ubuntu-1804-bionic-v20200414",
+            "image": "debian-cloud/debian-10-buster-v20200805",
             "size" : instance_disk_size,
         }
     },
@@ -66,16 +66,4 @@ pulumi.export("instance_external_ip", instance_addr.address)
 pulumi.export("cpu_platform", compute_instance.cpu_platform)
 pulumi.export("compute_firewall", compute_firewall.id)
 
-
-master = gcp.sql.DatabaseInstance("master",
-                                  database_version="MYSQL_5_7",
-                                  project="chef-216716",
-                                  region="us-central1",
-                                  settings={
-                                      "tier": "db-f1-micro",
-                                  })
-
-pulumi.export("master_private_ip_address", master.private_ip_address)
-pulumi.export("master_public_ip_address", master.public_ip_address)
-pulumi.export("master", master.connection_name)
 

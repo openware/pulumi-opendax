@@ -1,4 +1,4 @@
-name: gcp-debian-instance
+name: gcp-debian-opendax
 runtime:
   name: python
   options:
