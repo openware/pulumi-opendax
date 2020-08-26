@@ -2,5 +2,4 @@ cd /opendax
 bundle install
 rake -T
 sudo -- sh -c "echo 0.0.0.0 www.app.local >> /etc/hosts"
-#exit from terminal
 rake service:all
