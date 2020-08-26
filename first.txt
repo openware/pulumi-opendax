@@ -1,0 +1,57 @@
+  rm -rf opendax
+  sudo chmod -R 777 /usr/local/rvm/*
+  git clone https://github.com/openware/opendax.git && cd "$(basename "$_" .git)"
+#gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+  rvm reinstall ruby-2.6.5
+  source $(rvm 2.6.5 do rvm env --path)
+  ruby --version
+#  sudo apt-get install -y rubygems
+                                                              sudo gem update --system
+  sudo gem install bundler
+bundler update --bundler
+bundle install
+rake -T
+sudo -- sh -c "echo 0.0.0.0 www.app.local >> /etc/hosts"
+echo $?
+echo "now starting containers"
+
+
+
+
+sudo systemctl status docker
+    2  docker compose -v
+    3  su - app
+    4  who
+    5  sudo useradd -g users -s `which bash` -m app
+    6  sudo su
+    7  ls
+    8  git clone https://github.com/openware/opendax.git
+    9  rm -rf opendax/
+   10  sudo su
+   11  rvm install "ruby-2.6.5"
+   12  ruby --version
+   13  bundle install
+   14  bundle update --bundler
+   15  gem update --system
+   16  gem list A
+   21  cd opendax/
+   22  gem install bundler
+   23  bundle install
+   24  rake -T
+   25  sudo -- sh -c "echo 0.0.0.0 www.app.local >> /etc/hosts"
+   26  history
+
+
+-----------------------------------------------------------
+
+rm -rf opendax
+sudo chmod -R 777 /usr/local/rvm/*
+sudo usermod -aG docker $USER
+rvm reinstall ruby-2.6.5
+source $(rvm 2.6.5 do rvm env --path)
+ruby --version
+gem update --system
+gem list A
+
+
+
