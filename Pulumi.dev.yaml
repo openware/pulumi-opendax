@@ -1,4 +1,8 @@
 config:
+  gcp-debian-opendax:instance_disk_size: "300"
+  gcp-debian-opendax:instance_name: opendax
+  gcp-debian-opendax:instance_type: n1-standard-2
+  gcp-debian-opendax:zone_name: us-central1-a
   gcp:project: chef-216716
   gcp:region: us-central1
   gcp:zone: us-central1-a
