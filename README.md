@@ -1,5 +1,5 @@
 # pulumi-opendax
-# Demo deployment system with pulumi
+## Demo deployment system with pulumi
 
 ```bash
 legion@SkyNet:~$ mkdir TEST
@@ -20,7 +20,7 @@ install_from_github.sh  network.py   Pulumi.dev.yaml  requirements.txt  second.t
 legion@SkyNet:~/TEST/pulumi-opendax$ pulumi up
 ```
 
-  #  I try to provision , but I can not and then  failed because we must configure  python modules (it is depends from clouds)
+  #####  I try to provision , but I can not and then  failed because we must configure  python modules (it is depends from clouds)
 ```bash
 legion@SkyNet:~/TEST/pulumi-opendax$ pulumi up   
 Please choose a stack, or create a new one:  [Use arrows to move, enter to select, type to filter]
@@ -40,7 +40,7 @@ Diagnostics:
         3. /home/legion/TEST/pulumi-opendax/venv/bin/python -m pip install -r requirements.txt
 ```
 
- # At this moment I can configure provisions using commands:
+ ##### At this moment I can configure provisions using commands:
 ```bash
 legion@SkyNet:~/TEST/pulumi-opendax$ python3 -m venv /home/legion/TEST/pulumi-opendax/venv
 
@@ -93,7 +93,7 @@ Installing collected packages: six, protobuf, grpcio, dill, pulumi, attrs, arpeg
 Successfully installed arpeggio-1.9.2 attrs-20.1.0 dill-0.3.2 grpcio-1.31.0 parver-0.3.0 protobuf-3.13.0 pulumi-2.9.0 pulumi-gcp-3.21.1 semver-2.10.2 six-1.15.0
 ```
 
- # I execute provision to GCP by default (it is Pulumi.dev.yaml), in shortly for better we can used pulumi up -y
+ ##### I execute provision to GCP by default (it is Pulumi.dev.yaml), in shortly for better we can used pulumi up -y
 ```bash
 legion@SkyNet:~/TEST/pulumi-opendax$ pulumi up
 Previewing update (dev):
@@ -113,7 +113,7 @@ Do you want to perform this update?  [Use arrows to move, enter to select, type 
   details
 ```
 
- # we can change default parameters by adding 
+ ##### we can change default parameters by adding 
  ```bash
 pulumi config set instance_name opendax
 pulumi config set instance_disk_size 300
@@ -121,7 +121,7 @@ pulumi config set instance_type n1-standard-2
 pulumi config set gcp-debian-opendax:zone_name us-central1-a
 ```
 
-# made provision to GCP
+##### made provision to GCP
 ```bash             
 Updating (dev):
      Type                     Name                    Status      
@@ -141,7 +141,7 @@ Outputs:
 ```  
   
   
-# go to gcp Compute Engine and find our instance and in point ssh take commands
+##### go to gcp Compute Engine and find our instance and in point ssh take commands
 
 ```bash
 gcloud beta compute ssh --zone "us-central1-a" "opendax" --project "chef-216716"
@@ -213,7 +213,7 @@ rvm 1.29.10 (latest) by Michal Papis, Piotr Kuczynski, Wayne E. Seguin [https://
 legion@opendax:~$ 
 ```
               
-# and we can also use other terminal for logging by ssh not using native tools of GCP  that give us possibility use Ansible or Salt Stack 
+##### and we can also use other terminal for logging by ssh not using native tools of GCP  that give us possibility use Ansible or Salt Stack 
 
 ```bash
 legion@SkyNet:~$ ssh root@35.226.214.8
@@ -234,7 +234,7 @@ root@opendax:~# su - app
 app@opendax:~$ 
 ```
 
-# we have made provision pulumi infostructure and prepared for use ansible playbook  sshd_config , than
+##### we have made provision pulumi infostructure and prepared for use ansible playbook  sshd_config , than
 
 ```bash
 legion@SkyNet:~/TEST/pulumi-opendax$ cd playbook/
@@ -302,7 +302,7 @@ PLAY RECAP *********************************************************************
 legion@SkyNet:~/TEST/pulumi-opendax/playbook$ 
 ```
 
-# than I used ssh with command root@IP and  I can see
+##### than I used ssh with command root@IP and  I can see
 
 ```bash
 legion@opendax:~$ ls
@@ -312,7 +312,7 @@ legion@opendax:~$
 
 
 
-# At this moment we are going to installing all nessacery tools and requeraments for running docker containers
+##### At this moment we are going to installing all nessacery tools and requeraments for running docker containers
 
 ```bash
 legion@opendax:~$ bash script.sh 
