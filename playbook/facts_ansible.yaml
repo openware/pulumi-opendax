@@ -1,0 +1,62 @@
+---
+- name: show facts
+  hosts: opendax
+
+  tasks:
+    - name: Show IP Address
+      debug:
+        msg: "{{ ansible_default_ipv4.address }}"
+    - name: Show IP6 Address
+      debug:
+        msg: "{{ ansible_all_ipv6_addresses }}"
+    - name: Show Linux distribution
+      debug:
+        msg: "{{ ansible_distribution }}"
+    - name: Show Linux distribution
+      debug:
+        msg: "{{ ansible_distribution_version }}"
+    - name: Show Linux distribution
+      debug:
+        msg: "{{  ansible_facts['nodename']  }}"
+
+    - name: I am confused
+      command: 'whoami'
+      become: true
+      become_method: su
+      become_user: legion
+      register: myidentity
+
+    - name: my secret identity
+      debug:
+        msg: '{{ myidentity.stdout }}'
+
+    - name: copy file first.txt to remote host
+      copy:
+        src: /home/legion/gcp-debian-opendax/first.txt
+        dest: /home/legion/
+        owner: legion
+        mode: 0744
+
+    - name: copy file script.sh to remote host
+      copy:
+        src: /home/legion/gcp-debian-opendax/script.sh
+        dest: /home/legion/
+        owner: legion
+        mode: 0744
+
+    - name: copy file second.txt to remote host
+      copy:
+        src: /home/legion/gcp-debian-opendax/second.txt
+        dest: /home/legion/
+        owner: legion
+        mode: 0744
+
+#
+#    - name: Execute the script
+#      command: sh /home/legion/script.txt
+#   # - name: Run a script with arguments (free form)
+#   #   script: /home/legion/gcp-debian-opendax/script.sh
+#      register: output
+#    - debug: var=output.stdout_lines
+
+

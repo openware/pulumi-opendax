@@ -1,0 +1,31 @@
+
+
+#-----------------------
+configure ssh
+sudo nano /etc/ssh/sshd_config
+1.
+PermitRootLogin prohibit-password to PermitRootLogin yes
+PasswordAuthentication no to PasswordAuthentication yes
+
+               then, restart ssh service:
+sudo service ssh restart
+2.
+legion@opendax:~/.ssh$ sudo su
+root@opendax:/home/legion/.ssh# passwd
+New password:
+Retype new password:
+passwd: password updated successfully
+
+3.
+legion@SkyNet:~$ ssh  root@35.192.192.154
+root@35.192.192.154's password:
+Linux opendax 4.19.0-10-cloud-amd64 #1 SMP Debian 4.19.132-1 (2020-07-24) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+root@opendax:~# ls
+root@opendax:~#

@@ -1,0 +1,10 @@
+- name: run second.txt
+  hosts: opendax
+
+  tasks:
+    - name: Show directory
+      shell:
+        cmd: ls -la
+        chdir: /home/{{ ansible_ssh_user }}/opendax
+
+
