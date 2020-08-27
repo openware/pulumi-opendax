@@ -2,6 +2,7 @@
 # Demo deployment system with pulumi
 
 #  I began provision 
+```bash
 legion@SkyNet:~$ mkdir TEST
 legion@SkyNet:~$ cd TEST
 legion@SkyNet:~/TEST$ git clone https://github.com/mehanic/pulumi-opendax.git
@@ -18,7 +19,8 @@ legion@SkyNet:~/TEST/pulumi-opendax$ ls
 first.txt               __main__.py  playbook         Pulumi.yaml       script.sh   ssh-configure.txt
 install_from_github.sh  network.py   Pulumi.dev.yaml  requirements.txt  second.txt
 legion@SkyNet:~/TEST/pulumi-opendax$ pulumi up
-                       
+```
+
   #  I try to provision , but have failed becouse need install python modules
 legion@SkyNet:~/TEST/pulumi-opendax$ pulumi up   
 Please choose a stack, or create a new one:  [Use arrows to move, enter to select, type to filter]
