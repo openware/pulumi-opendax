@@ -52,6 +52,6 @@ source $(rvm 2.6.5 do rvm env --path)
 ruby --version
 gem update --system
 gem list A
-
+#exit from terminal becouse we must use docker without sudo, and open terminal again
 
 
