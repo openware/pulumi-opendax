@@ -21,7 +21,7 @@ install_from_github.sh  network.py   Pulumi.dev.yaml  requirements.txt  second.t
 legion@SkyNet:~/TEST/pulumi-opendax$ pulumi up
 ```
 
-  #  I try to provision , but have failed becouse need install python modules
+  #  I try to provision , but I can not and then  failed because we must configure  python modules (it is depends from clouds)
 ```bash
 legion@SkyNet:~/TEST/pulumi-opendax$ pulumi up   
 Please choose a stack, or create a new one:  [Use arrows to move, enter to select, type to filter]
@@ -41,9 +41,10 @@ Diagnostics:
         3. /home/legion/TEST/pulumi-opendax/venv/bin/python -m pip install -r requirements.txt
 ```
 
- # At this moment I can configure provisions
+ # At this moment I can configure provisions using commands:
 ```bash
 legion@SkyNet:~/TEST/pulumi-opendax$ python3 -m venv /home/legion/TEST/pulumi-opendax/venv
+
 legion@SkyNet:~/TEST/pulumi-opendax$ /home/legion/TEST/pulumi-opendax/venv/bin/python -m pip install --upgrade pip setuptools wheel
 Collecting pip
   Using cached pip-20.2.2-py2.py3-none-any.whl (1.5 MB)
@@ -61,6 +62,7 @@ Installing collected packages: pip, setuptools, wheel
     Uninstalling setuptools-46.1.3:
       Successfully uninstalled setuptools-46.1.3
 Successfully installed pip-20.2.2 setuptools-49.6.0 wheel-0.35.1
+
 legion@SkyNet:~/TEST/pulumi-opendax$ /home/legion/TEST/pulumi-opendax/venv/bin/python -m pip install -r requirements.txt
 Collecting pulumi<3.0.0,>=2.0.0
   Using cached pulumi-2.9.0-py2.py3-none-any.whl (107 kB)
@@ -92,7 +94,7 @@ Installing collected packages: six, protobuf, grpcio, dill, pulumi, attrs, arpeg
 Successfully installed arpeggio-1.9.2 attrs-20.1.0 dill-0.3.2 grpcio-1.31.0 parver-0.3.0 protobuf-3.13.0 pulumi-2.9.0 pulumi-gcp-3.21.1 semver-2.10.2 six-1.15.0
 ```
 
- # I execute provision to GCP by default (it is Pulumi.dev.yaml)
+ # I execute provision to GCP by default (it is Pulumi.dev.yaml), in shortly for better we can used pulumi up -y
 ```bash
 legion@SkyNet:~/TEST/pulumi-opendax$ pulumi up
 Previewing update (dev):
@@ -140,11 +142,12 @@ Outputs:
 ```  
   
   
-# go to gcp Compute Engine and find our instance and login
+# go to gcp Compute Engine and find our instance and in point ssh take commands
+
 ```bash
 gcloud beta compute ssh --zone "us-central1-a" "opendax" --project "chef-216716"
 ```
-----
+
 ```bash
 legion@SkyNet:~$ gcloud beta compute ssh --zone "us-central1-a" "opendax" --project "chef-216716"
 Warning: Permanently added 'compute.7080754009159871488' (ECDSA) to the list of known hosts.
