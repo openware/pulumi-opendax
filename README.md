@@ -22,6 +22,7 @@ legion@SkyNet:~/TEST/pulumi-opendax$ pulumi up
 ```
 
   #  I try to provision , but have failed becouse need install python modules
+```bash
 legion@SkyNet:~/TEST/pulumi-opendax$ pulumi up   
 Please choose a stack, or create a new one:  [Use arrows to move, enter to select, type to filter]
 > dev
@@ -38,11 +39,10 @@ Diagnostics:
         1. python3 -m venv /home/legion/TEST/pulumi-opendax/venv
         2. /home/legion/TEST/pulumi-opendax/venv/bin/python -m pip install --upgrade pip setuptools wheel
         3. /home/legion/TEST/pulumi-opendax/venv/bin/python -m pip install -r requirements.txt
-    
-    
-    For more information see: https://www.pulumi.com/docs/intro/languages/python/#virtual-environments
- 
+```
+
  # At this moment I can configure provisions
+```bash
 legion@SkyNet:~/TEST/pulumi-opendax$ python3 -m venv /home/legion/TEST/pulumi-opendax/venv
 legion@SkyNet:~/TEST/pulumi-opendax$ /home/legion/TEST/pulumi-opendax/venv/bin/python -m pip install --upgrade pip setuptools wheel
 Collecting pip
@@ -90,8 +90,10 @@ Building wheels for collected packages: pulumi-gcp
 Successfully built pulumi-gcp
 Installing collected packages: six, protobuf, grpcio, dill, pulumi, attrs, arpeggio, parver, semver, pulumi-gcp
 Successfully installed arpeggio-1.9.2 attrs-20.1.0 dill-0.3.2 grpcio-1.31.0 parver-0.3.0 protobuf-3.13.0 pulumi-2.9.0 pulumi-gcp-3.21.1 semver-2.10.2 six-1.15.0
+```
 
  # I execute provision to GCP by default (it is Pulumi.dev.yaml)
+```bash
 legion@SkyNet:~/TEST/pulumi-opendax$ pulumi up
 Previewing update (dev):
      Type                     Name                    Plan       
@@ -108,6 +110,7 @@ Do you want to perform this update?  [Use arrows to move, enter to select, type 
   yes
 > no
   details
+```
 
  # we can change default parameters by adding 
 pulumi config set instance_name opendax
@@ -116,7 +119,7 @@ pulumi config set instance_type n1-standard-2
 pulumi config set gcp-debian-opendax:zone_name us-central1-a
 
 # made provision to GCP
-             
+```bash             
 Updating (dev):
      Type                     Name                    Status      
  +   pulumi:pulumi:Stack      gcp-debian-opendax-dev  created     
@@ -132,13 +135,14 @@ Outputs:
     instanceName        : "opendax"                                                                                                    
     instanceStatus      : "RUNNING"                                                                                                    
     instance_external_ip: "35.226.214.8"                                                                                               
-  
+```  
   
   
 # go to gcp Compute Engine and find our instance and login
 gcloud beta compute ssh --zone "us-central1-a" "opendax" --project "chef-216716"
 
 ----
+```bash
 legion@SkyNet:~$ gcloud beta compute ssh --zone "us-central1-a" "opendax" --project "chef-216716"
 Warning: Permanently added 'compute.7080754009159871488' (ECDSA) to the list of known hosts.
 Linux opendax 4.19.0-10-cloud-amd64 #1 SMP Debian 4.19.132-1 (2020-07-24) x86_64
@@ -202,10 +206,11 @@ docker-compose version 1.26.2, build eefe0d31
 legion@opendax:~$ rvm -v
 rvm 1.29.10 (latest) by Michal Papis, Piotr Kuczynski, Wayne E. Seguin [https://rvm.io]
 legion@opendax:~$ 
-
+```
               
 # and we can also use other terminal for logging by ssh not using native tools of GCP  that give us possibility use Ansible or Salt Stack 
 
+```bash
 legion@SkyNet:~$ ssh root@35.226.214.8
 The authenticity of host '35.226.214.8 (35.226.214.8)' can't be established.
 ECDSA key fingerprint is SHA256:KBZWeTAj46GH59beEWYgK3mRb/cuGabV5K43KjC67Mk.
@@ -222,6 +227,7 @@ Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
 permitted by applicable law.
 root@opendax:~# su - app
 app@opendax:~$ 
+```
 
 # we have made provision pulumi infostructure and prepared for use ansible playbook  sshd_config , than
 legion@SkyNet:~/TEST/pulumi-opendax$ cd playbook/
