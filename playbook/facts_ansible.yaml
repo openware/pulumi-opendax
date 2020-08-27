@@ -19,7 +19,7 @@
       debug:
         msg: "{{  ansible_facts['nodename']  }}"
 
-    - name: I am confused
+    - name: Show name of user
       command: 'whoami'
       become: true
       become_method: su
