@@ -5,4 +5,3 @@ config:
   gcp-debian-opendax:zone_name: us-central1-a
   gcp:project: chef-216716
   gcp:region: us-central1
-  gcp:zone: us-central1-a
