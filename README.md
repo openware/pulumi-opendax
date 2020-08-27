@@ -1,7 +1,6 @@
 # pulumi-opendax
 # Demo deployment system with pulumi
 
-#  I began provision 
 ```bash
 legion@SkyNet:~$ mkdir TEST
 legion@SkyNet:~$ cd TEST
