@@ -330,7 +330,7 @@ ruby-2.6.5 - #download
 100 19.8M  100 19.8M    0     0  41.8M      0 --:--:-- --:--:-- --:--:-- 41.7M
 
               
-  # and in the end of running this script we shall see
+  *and in the end of running this script we shall see*
   
   *** LOCAL GEMS ***
 
