@@ -277,7 +277,7 @@ ok: [35.226.214.8] => {
     "msg": "opendax"
 }
 
-TASK [I am confused] ******************************************************************************************************************
+TASK [Show name of user] ******************************************************************************************************************
 [WARNING]: Module remote_tmp /home/legion/.ansible/tmp did not exist and was created with a mode of 0700, this may cause issues when
 running as another user. To avoid this, create the remote_tmp dir with the correct permissions manually
 changed: [35.226.214.8]
