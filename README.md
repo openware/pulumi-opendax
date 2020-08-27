@@ -113,10 +113,12 @@ Do you want to perform this update?  [Use arrows to move, enter to select, type 
 ```
 
  # we can change default parameters by adding 
+ ```bash
 pulumi config set instance_name opendax
 pulumi config set instance_disk_size 300
 pulumi config set instance_type n1-standard-2
 pulumi config set gcp-debian-opendax:zone_name us-central1-a
+```
 
 # made provision to GCP
 ```bash             
@@ -139,8 +141,9 @@ Outputs:
   
   
 # go to gcp Compute Engine and find our instance and login
+```bash
 gcloud beta compute ssh --zone "us-central1-a" "opendax" --project "chef-216716"
-
+```
 ----
 ```bash
 legion@SkyNet:~$ gcloud beta compute ssh --zone "us-central1-a" "opendax" --project "chef-216716"
@@ -230,6 +233,8 @@ app@opendax:~$
 ```
 
 # we have made provision pulumi infostructure and prepared for use ansible playbook  sshd_config , than
+
+```bash
 legion@SkyNet:~/TEST/pulumi-opendax$ cd playbook/
 legion@SkyNet:~/TEST/pulumi-opendax/playbook$ ls
 ansible.cfg  dev  facts_ansible.yaml  install_second-txt_script.yaml
@@ -293,19 +298,21 @@ PLAY RECAP *********************************************************************
 35.226.214.8               : ok=11   changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
 legion@SkyNet:~/TEST/pulumi-opendax/playbook$ 
+```
 
+# than I used ssh with command root@IP and  I can see
 
-# than I came back to terminal and I can see
-
-
+```bash
 legion@opendax:~$ ls
 first.txt  script.sh  second.txt
 legion@opendax:~$ 
+```
+
+
 
 # At this moment we are going to installing all nessacery tools and requeraments for running docker containers
 
-
-
+```bash
 legion@opendax:~$ bash script.sh 
 Searching for binary rubies, this might take some time.
 Found remote file https://rvm_io.global.ssl.fastly.net/binaries/debian/10/x86_64/ruby-2.6.5.tar.bz2
@@ -353,7 +360,7 @@ Resolving deltas: 100% (1749/1749), done.
 legion@opendax:~$ ls
 first.txt  opendax  script.sh  second.txt
 legion@opendax:~$ 
-
+```
           
               
               
