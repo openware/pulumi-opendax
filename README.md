@@ -376,6 +376,9 @@ Client:
 Server:
 ERROR: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get http://%2Fvar%2Frun%2Fdocker.sock/v1.40/info: dial unix /var/run/docker.sock: connect: permission denied
 errors pretty printing info
+
+#exit from terminal because we must use docker without sudo , and open again
+
 legion@opendax:~$ exit
 logout
 root@opendax:~# exit
@@ -424,7 +427,6 @@ cd /opendax
 bundle install
 rake -T
 sudo -- sh -c "echo 0.0.0.0 www.app.local >> /etc/hosts"
-#exit from terminal because we must use docker without sudo , and open again and start containers
 rake service:all             
 ```
 
