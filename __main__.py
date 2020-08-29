@@ -19,7 +19,7 @@ add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(
 apt -y update
 mkdir -p /home/legion/.ssh
 chmod 700 /home/legion/.ssh
-echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC22PSFCvJxCyh5+OdBXuZ7soeYljNO2q4Rxh3NUuQdVchN+88urpmD++DU4UwoNgc5WQVOHivJljp3EM8JJ497YObu0WIyRnW8+wuv+IL/LiyED8+vEjYVB98kUPE1rv6KOjvztTIISVvTJa9+X7qVE244YX6hqk7iWEauR+aXJcep2RNCKEJK81M+9KfhxZlJbRDgbtNIpVoYI5jDweDlmEPiZf1NIX0nuIt54AnhLQRGpb8HBH6ZC+nET7mlzwPdllv2PgJOmVQ6NdWUoa+lBdjT1DZo+c89evNntUzXreht50I/pnT6nL5GsmQdDu37GxvmoFJd+e0AzVsyGlRXc+ISfsqPia6bzD8kY+kFbHsZLD3nZD+r3dCCtxdfjmEYBlKQ8TKc5QpE9DG6JoYyV92EEzNA2U38Cl25pr8Eom+H4na4LNPK8doU17h8ESG3C3BCGfgkCyjWLdUDdOdCRxgQt17EBN9u9pFgPDYiqDXWkjhSU5Fbi2YJ0ymjz6s= legion@SkyNet" >> /home/ggheo/.ssh/authorized_keys
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC22PSFCvJxCyh5+OdBXuZ7soeYljNO2q4Rxh3NUuQdVchN+88urpmD++DU4UwoNgc5WQVOHivJljp3EM8JJ497YObu0WIyRnW8+wuv+IL/LiyED8+vEjYVB98kUPE1rv6KOjvztTIISVvTJa9+X7qVE244YX6hqk7iWEauR+aXJcep2RNCKEJK81M+9KfhxZlJbRDgbtNIpVoYI5jDweDlmEPiZf1NIX0nuIt54AnhLQRGpb8HBH6ZC+nET7mlzwPdllv2PgJOmVQ6NdWUoa+lBdjT1DZo+c89evNntUzXreht50I/pnT6nL5GsmQdDu37GxvmoFJd+e0AzVsyGlRXc+ISfsqPia6bzD8kY+kFbHsZLD3nZD+r3dCCtxdfjmEYBlKQ8TKc5QpE9DG6JoYyV92EEzNA2U38Cl25pr8Eom+H4na4LNPK8doU17h8ESG3C3BCGfgkCyjWLdUDdOdCRxgQt17EBN9u9pFgPDYiqDXWkjhSU5Fbi2YJ0ymjz6s= legion@SkyNet" >> /home/legion/.ssh/authorized_keys
 chown -R legion:legion /home/legion/.ssh
 sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
