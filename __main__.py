@@ -4,7 +4,6 @@ from pulumi_gcp import compute
 from network import compute_network, compute_firewall
 import pulumi_gcp as gcp
 
-
 script = """#!/bin/bash
 apt -y update
 useradd -g users -s `which bash` -m app
@@ -19,7 +18,7 @@ add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(
 apt -y update
 mkdir -p /home/legion/.ssh
 chmod 700 /home/legion/.ssh
-echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC22PSFCvJxCyh5+OdBXuZ7soeYljNO2q4Rxh3NUuQdVchN+88urpmD++DU4UwoNgc5WQVOHivJljp3EM8JJ497YObu0WIyRnW8+wuv+IL/LiyED8+vEjYVB98kUPE1rv6KOjvztTIISVvTJa9+X7qVE244YX6hqk7iWEauR+aXJcep2RNCKEJK81M+9KfhxZlJbRDgbtNIpVoYI5jDweDlmEPiZf1NIX0nuIt54AnhLQRGpb8HBH6ZC+nET7mlzwPdllv2PgJOmVQ6NdWUoa+lBdjT1DZo+c89evNntUzXreht50I/pnT6nL5GsmQdDu37GxvmoFJd+e0AzVsyGlRXc+ISfsqPia6bzD8kY+kFbHsZLD3nZD+r3dCCtxdfjmEYBlKQ8TKc5QpE9DG6JoYyV92EEzNA2U38Cl25pr8Eom+H4na4LNPK8doU17h8ESG3C3BCGfgkCyjWLdUDdOdCRxgQt17EBN9u9pFgPDYiqDXWkjhSU5Fbi2YJ0ymjz6s= legion@SkyNet" >> /home/legion/.ssh/authorized_keys
+cat ~/.ssh/id_rsa.pub >> /home/legion/.ssh/authorized_keys
 chown -R legion:legion /home/legion/.ssh
 sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
@@ -37,6 +36,13 @@ zone = config.require('zone_name')
 instance_type = config.require('instance_type')
 #instance_image = config.require('instance_image')
 instance_disk_size = config.require('instance_disk_size')
+google_sql = config.require("database_version")
+google_db_image = config.require("database_image")
+project = config.require("current_project")
+
+
+
+
 #instance_disk_size = 300
 instance_addr = compute.address.Address("address")
 compute_instance = compute.Instance(
@@ -78,3 +84,16 @@ pulumi.export("cpu_platform", compute_instance.cpu_platform)
 pulumi.export("compute_firewall", compute_firewall.id)
 
 
+master = gcp.sql.DatabaseInstance("master",
+                                  database_version=google_sql,   #"MYSQL_5_7",
+                                  project=project,
+                                  region="us-central1",
+                                  settings={
+                                      "tier": google_db_image,#"db-f1-micro",
+                                  })
+
+pulumi.export("master_private_ip_address", master.private_ip_address)
+pulumi.export("master_public_ip_address", master.public_ip_address)
+pulumi.export("master", master.connection_name)
+
+pulumi.export("master_database", master.connection_name)

@@ -1,9 +1,10 @@
-from pulumi_gcp import compute
+from pulumi_gcp import compute, servicenetworking
+from pulumi_gcp.config import project
 
 compute_network = compute.Network(
     "network",
     auto_create_subnetworks=True,
-    project="chef-216716"
+    project=project
 )
 
 
@@ -15,4 +16,3 @@ compute_firewall = compute.Firewall(
         "ports": ["22", "80", "443"],
     }]
 )
-
