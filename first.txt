@@ -1,0 +1,11 @@
+rm -rf opendax
+sudo chmod -R 777 /usr/local/rvm/*
+sudo usermod -aG docker $USER
+rvm reinstall ruby-2.6.5
+source $(rvm 2.6.5 do rvm env --path)
+ruby --version
+gem update --system
+gem list A
+
+
+

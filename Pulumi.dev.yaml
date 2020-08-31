@@ -1,0 +1,12 @@
+config:
+  gcp-debian-opendax:current_project: chef-216716
+  gcp-debian-opendax:database_image: db-f1-micro
+  gcp-debian-opendax:database_version: MYSQL_5_7
+  gcp-debian-opendax:google_db_image: db-f1-micro
+  gcp-debian-opendax:google_sql: MYSQL_5_7
+  gcp-debian-opendax:instance_disk_size: "300"
+  gcp-debian-opendax:instance_name: opendax
+  gcp-debian-opendax:instance_type: n1-standard-2
+  gcp-debian-opendax:zone_name: us-central1-a
+  gcp:project: chef-216716
+  gcp:region: us-central1
